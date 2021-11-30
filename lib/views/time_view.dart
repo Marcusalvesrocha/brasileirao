@@ -2,6 +2,7 @@ import 'package:brasileirao/models/time.dart';
 import 'package:brasileirao/models/titulo.dart';
 import 'package:brasileirao/repositories/time_repository.dart';
 import 'package:brasileirao/views/cadatro_titulo_view.dart';
+import 'package:brasileirao/views/editar_titulo_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -102,6 +103,14 @@ class _TimeViewState extends State<TimeView> {
                 leading: Icon(Icons.emoji_events),
                 title: Text(time.titulos[index].campeonato),
                 trailing: Text(time.titulos[index].ano),
+                onTap: () {
+                  Get.to(
+                    () => EditarTituloView(
+                      titulo: time.titulos[index],
+                    ),
+                    fullscreenDialog: true,
+                  );
+                },
               );
             },
           );

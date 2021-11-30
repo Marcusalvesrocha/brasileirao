@@ -1,47 +1,54 @@
-import 'package:brasileirao/models/time.dart';
 import 'package:brasileirao/models/titulo.dart';
 import 'package:brasileirao/repositories/time_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-class CadastroTituloView extends StatefulWidget {
-  Time? time;
+class EditarTituloView extends StatefulWidget {
+  Titulo? titulo;
 
-  CadastroTituloView({Key? key, this.time}) : super(key: key);
+  EditarTituloView({Key? key, this.titulo}) : super(key: key);
 
   @override
-  _CadastroTituloViewState createState() => _CadastroTituloViewState();
+  _EditarTituloViewState createState() => _EditarTituloViewState();
 }
 
-class _CadastroTituloViewState extends State<CadastroTituloView> {
-  final _campeonatoController = TextEditingController();
-  final _anoController = TextEditingController();
+class _EditarTituloViewState extends State<EditarTituloView> {
+  var _campeonatoController = TextEditingController();
+  var _anoController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  save() {
-    Provider.of<TimeRepository>(context, listen: false).addTitulo(
-      widget.time!,
-      Titulo(_campeonatoController.text, _anoController.text),
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _campeonatoController.text = widget.titulo!.campeonato;
+    _anoController.text = widget.titulo!.ano;
+  }
+
+  editar() {
+    Provider.of<TimeRepository>(context, listen: false).editTitulo(
+      titulo: widget.titulo,
+      ano: _anoController.text,
+      campeonato: _campeonatoController.text,
     );
 
     Get.back();
-
-    Get.snackbar(
-      "Sucesso",
-      "Cadastrado com sucesso!",
-      backgroundColor: widget.time!.cor,
-      snackPosition: SnackPosition.BOTTOM,
-      colorText: Colors.white,
-    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Novo Campeonato"),
-        backgroundColor: widget.time!.cor,
+        title: Text("Editar Titulo"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              editar();
+            },
+            icon: Icon(Icons.check),
+          )
+        ],
       ),
       body: Form(
         key: _formKey,
@@ -83,29 +90,6 @@ class _CadastroTituloViewState extends State<CadastroTituloView> {
                 },
               ),
             ),
-            Expanded(
-              child: Container(
-                alignment: Alignment.bottomCenter,
-                margin: EdgeInsets.all(23),
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      save();
-                    }
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.check),
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Text("Salvar"),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            )
           ],
         ),
       ),

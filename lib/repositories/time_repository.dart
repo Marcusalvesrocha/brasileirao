@@ -16,6 +16,12 @@ class TimeRepository extends ChangeNotifier {
     notifyListeners();
   }
 
+  void editTitulo({Titulo? titulo, String? ano, String? campeonato}) {
+    titulo!.ano = ano!;
+    titulo.campeonato = campeonato!;
+    notifyListeners();
+  }
+
   final List<Time> _times = [
     Time(
       nome: 'Corinthians',
