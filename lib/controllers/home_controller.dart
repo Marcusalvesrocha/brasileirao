@@ -1,30 +1,13 @@
+import 'package:brasileirao/repositories/time_repository.dart';
 import 'package:brasileirao/models/time.dart';
+import 'package:brasileirao/models/titulo.dart';
 
 class HomeController {
-  List<Time>? tabela;
+  late TimeRepository timeRepository;
 
   HomeController() {
-    tabela = [
-      Time(
-        "Corinthians",
-        "https://e.imguol.com/futebol/brasoes/40x40/corinthians.png.webp?v3",
-        50,
-      ),
-      Time(
-        "Bahia",
-        "https://e.imguol.com/futebol/brasoes/40x40/bahia.png.webp?v3",
-        40,
-      ),
-      Time(
-        "Atlético Mineiro",
-        "https://e.imguol.com/futebol/brasoes/40x40/atletico-mg.png.webp?v3",
-        73,
-      ),
-      Time(
-        "Grêmio",
-        "https://e.imguol.com/futebol/brasoes/40x40/gremio.png.webp?v3",
-        40,
-      ),
-    ];
+    timeRepository = TimeRepository();
   }
+
+  List<Time> get tabela => timeRepository.times;
 }
