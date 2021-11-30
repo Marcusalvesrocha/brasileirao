@@ -3,6 +3,7 @@ import 'package:brasileirao/models/titulo.dart';
 import 'package:brasileirao/repositories/time_repository.dart';
 import 'package:brasileirao/views/cadatro_titulo_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class TimeView extends StatefulWidget {
@@ -60,12 +61,9 @@ class _TimeViewState extends State<TimeView> {
   }
 
   tituloView() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (c) => CadastroTituloView(time: widget.time),
-      ),
-    );
+    Get.to(() => CadastroTituloView(
+          time: widget.time,
+        ));
   }
 
   List<Widget> listTabs() {

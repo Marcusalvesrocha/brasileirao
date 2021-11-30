@@ -1,15 +1,15 @@
-# brasileirao
+# Brasileirão
 
 A new Flutter project.
 
-## Getting Started
+## Arquitetura
 
-This project is a starting point for a Flutter application.
+- [MVC]
 
-A few resources to get you started if this is your first Flutter project:
+## Pacotes
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- [Provider](https://pub.dev/packages/provider)
+- [GetX](https://pub.dev/packages/get)
 
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,

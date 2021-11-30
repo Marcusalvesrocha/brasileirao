@@ -2,6 +2,7 @@ import 'package:brasileirao/models/time.dart';
 import 'package:brasileirao/models/titulo.dart';
 import 'package:brasileirao/repositories/time_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class CadastroTituloView extends StatefulWidget {
@@ -23,7 +24,7 @@ class _CadastroTituloViewState extends State<CadastroTituloView> {
       widget.time!,
       Titulo(_campeonatoController.text, _anoController.text),
     );
-    Navigator.pop(context);
+    Get.back();
     Scaffold.of(context)
         .showSnackBar(SnackBar(content: Text("Cadastrado com sucesso!")));
   }
