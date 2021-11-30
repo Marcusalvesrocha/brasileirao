@@ -1,12 +1,13 @@
 import 'package:brasileirao/models/time.dart';
 import 'package:brasileirao/models/titulo.dart';
+import 'package:brasileirao/repositories/time_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CadastroTituloView extends StatefulWidget {
   Time? time;
-  ValueChanged<Titulo>? onSave;
 
-  CadastroTituloView({Key? key, this.time, this.onSave}) : super(key: key);
+  CadastroTituloView({Key? key, this.time}) : super(key: key);
 
   @override
   _CadastroTituloViewState createState() => _CadastroTituloViewState();
@@ -16,6 +17,16 @@ class _CadastroTituloViewState extends State<CadastroTituloView> {
   final _campeonatoController = TextEditingController();
   final _anoController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  save() {
+    Provider.of<TimeRepository>(context, listen: false).addTitulo(
+      widget.time!,
+      Titulo(_campeonatoController.text, _anoController.text),
+    );
+    Navigator.pop(context);
+    Scaffold.of(context)
+        .showSnackBar(SnackBar(content: Text("Cadastrado com sucesso!")));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,9 +82,7 @@ class _CadastroTituloViewState extends State<CadastroTituloView> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      widget.onSave!(
-                        Titulo(_campeonatoController.text, _anoController.text),
-                      );
+                      save();
                     }
                   },
                   child: Row(

@@ -1,7 +1,9 @@
 import 'package:brasileirao/models/time.dart';
 import 'package:brasileirao/models/titulo.dart';
+import 'package:brasileirao/repositories/time_repository.dart';
 import 'package:brasileirao/views/cadatro_titulo_view.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TimeView extends StatefulWidget {
   Time? time;
@@ -61,20 +63,9 @@ class _TimeViewState extends State<TimeView> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (c) =>
-            CadastroTituloView(time: widget.time, onSave: addTitulo),
+        builder: (c) => CadastroTituloView(time: widget.time),
       ),
     );
-  }
-
-  addTitulo(Titulo titulo) {
-    setState(() {
-      widget.time!.titulos.add(titulo);
-    });
-
-    Navigator.pop(context);
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text("Salvo com Sucesso!")));
   }
 
   List<Widget> listTabs() {
@@ -91,7 +82,10 @@ class _TimeViewState extends State<TimeView> {
   }
 
   Widget titulos() {
-    final quantidade = widget.time!.titulos.length;
+    final time = Provider.of<TimeRepository>(context)
+        .times
+        .firstWhere((t) => t.nome == widget.time!.nome);
+    final quantidade = time.titulos.length;
     return quantidade == 0
         ? Container(
             child: Center(
@@ -108,8 +102,8 @@ class _TimeViewState extends State<TimeView> {
             itemBuilder: (context, index) {
               return ListTile(
                 leading: Icon(Icons.emoji_events),
-                title: Text(widget.time!.titulos[index].campeonato),
-                trailing: Text(widget.time!.titulos[index].ano),
+                title: Text(time.titulos[index].campeonato),
+                trailing: Text(time.titulos[index].ano),
               );
             },
           );

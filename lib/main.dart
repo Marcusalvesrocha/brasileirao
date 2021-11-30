@@ -1,8 +1,13 @@
+import 'package:brasileirao/repositories/time_repository.dart';
 import 'package:brasileirao/views/home_view.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(App());
+  runApp(ChangeNotifierProvider(
+    create: (context) => TimeRepository(),
+    child: App(),
+  ));
 }
 
 class App extends StatelessWidget {
