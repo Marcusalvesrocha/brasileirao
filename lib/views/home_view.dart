@@ -2,6 +2,7 @@ import 'package:brasileirao/controllers/home_controller.dart';
 import 'package:brasileirao/models/time.dart';
 import 'package:brasileirao/repositories/time_repository.dart';
 import 'package:brasileirao/views/time_view.dart';
+import 'package:brasileirao/widget/brasao.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +41,16 @@ class _HomeViewState extends State<HomeView> {
               final time = repositorio.times[index];
               return ListTile(
                 key: Key(index.toString()),
-                leading: Image.network(time.brasao.toString()),
+                leading: SizedBox(
+                  width: 40,
+                  child: Hero(
+                    tag: time.brasao.toString(),
+                    child: Image.network(
+                      time.brasao.toString(),
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
                 title: Text(time.nome.toString()),
                 subtitle: Text("Títulos: ${time.titulos.length}"),
                 trailing: Text(time.pontos.toString()),

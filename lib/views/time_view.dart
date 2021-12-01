@@ -3,6 +3,7 @@ import 'package:brasileirao/models/titulo.dart';
 import 'package:brasileirao/repositories/time_repository.dart';
 import 'package:brasileirao/views/cadatro_titulo_view.dart';
 import 'package:brasileirao/views/editar_titulo_view.dart';
+import 'package:brasileirao/widget/brasao.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -42,10 +43,15 @@ class _TimeViewState extends State<TimeView> {
               children: [
                 Padding(
                   padding: EdgeInsets.all(24),
-                  child: Image.network(
-                    widget.time!.brasao
-                        .toString()
-                        .replaceAll("40x40", "100x100"),
+                  child: SizedBox(
+                    width: 250,
+                    child: Hero(
+                      tag: widget.time!.brasao.toString(),
+                      child: Image.network(
+                        widget.time!.brasao.toString(),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                   ),
                 ),
                 Text(
